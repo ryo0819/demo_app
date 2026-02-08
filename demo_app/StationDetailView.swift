@@ -6,7 +6,6 @@ struct StationDetailView: View {
     @State private var position: MapCameraPosition
     init(station: Station) {
         self.station = station
-        // 初期位置を駅の座標にセット
         _position = State(initialValue: .region(
             MKCoordinateRegion(
                 center: station.location,
@@ -30,13 +29,12 @@ struct StationDetailView: View {
                 Map(position: $position) {
                     Marker(station.name, coordinate: station.location)
                 }
-                .frame(height: 250) // 地図の高さ
-                .cornerRadius(10)   // 角を丸くするとリストに馴染みます
+                .frame(height: 250)
+                .cornerRadius(10)
                 .listRowInsets(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
             }
             
             Section(header: Text("所属路線")) {
-                // linesは[Int]なので、IDを並べて表示（実際は名前を引きたいところですね）
                 Text(station.lines.map { String($0) }.joined(separator: ", "))
                     .foregroundColor(.secondary)
             }

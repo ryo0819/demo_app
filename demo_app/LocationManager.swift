@@ -3,7 +3,7 @@ import CoreLocation
 import SwiftUI
 import Combine
 
-// @MainActor: このクラスの Published 変数への書き込みをメインスレッドに限定する
+
 @MainActor
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
@@ -12,7 +12,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     @Published var locations: [CLLocationCoordinate2D] = []
     override init() {
-        // 現在のステータスで初期化
         self.authorizationStatus = manager.authorizationStatus
         super.init()
         manager.delegate = self
@@ -20,7 +19,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
     }
-    // 権限が変わった時に呼ばれる最新のメソッド名
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         self.authorizationStatus = manager.authorizationStatus
         switch manager.authorizationStatus {
