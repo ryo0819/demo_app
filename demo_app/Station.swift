@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-struct Station: Codable, Identifiable {
+struct Station: Codable, Identifiable, Hashable {
     let id: Int
     let code: Int
     let prefecture: Int
